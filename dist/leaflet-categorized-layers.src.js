@@ -177,12 +177,12 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
   _onLabelClick: function () {
     if(!this.collapsed) {
       this.collapsed = true;
-      this.innerHTML = ' &#9658;' + this.category;
+      this.innerHTML = ' &#9658; ' + this.category;
       this.nextElementSibling.style.height = '0';
       this.nextElementSibling.style.display = 'none';
     } else {
       this.collapsed = false;
-      this.innerHTML = ' &#9660;' + this.category;
+      this.innerHTML = ' &#9660; ' + this.category;
       this.nextElementSibling.style.height = '100%';
       this.nextElementSibling.style.display = 'block';
     }
