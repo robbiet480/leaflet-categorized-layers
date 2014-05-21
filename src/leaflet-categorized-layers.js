@@ -13,7 +13,10 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     L.setOptions(this, options);
     this._layers = {};
     this._overlays = {};
-    this._groups = {};
+    this._groups = {
+      "baseLayer": {},
+      "overlay": {}
+    };
     this._lastZIndex = 0;
     this._handlingClick = false;
     for (var layerCategory in baseLayers) {
@@ -22,6 +25,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         baseLayers[layerCategory][baseLayer]._category = layerCategory;
         baseLayers[layerCategory][baseLayer]._name = baseLayer;
         baseLayers[layerCategory][baseLayer]._overlay = false;
+        baseLayers[layerCategory][baseLayer]._type = "baseLayer";
         this._addLayer(baseLayers[layerCategory][baseLayer], layerCategory, false);
       }
     }
@@ -32,6 +36,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         overlays[overlayCategory][overlay]._category = overlayCategory;
         overlays[overlayCategory][overlay]._name = overlay;
         overlays[overlayCategory][overlay]._overlay = true;
+        overlays[overlayCategory][overlay]._type = "overlay";
         this._addLayer(overlays[overlayCategory][overlay], overlayCategory, true);
       }
     }
@@ -77,7 +82,10 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
 
     this._baseLayersList.innerHTML = '';
     this._overlaysList.innerHTML = '';
-    this._groups = [];
+    this._groups = {
+      "baseLayer": {},
+      "overlay": {}
+    };
 
     var baseLayersPresent = false,
         overlaysPresent = false,
@@ -106,7 +114,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
   _addItem: function (obj) {
     var className = 'leaflet-control-layers',
       label, input, checked, appendTo;
-    if(!this._groups[obj._category]) {
+    if(!this._groups[obj._type][obj._category]) {
       var group = L.DomUtil.create('div', className + '-group');
 
       var groupHeader = document.createElement('span');
@@ -128,10 +136,10 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
 
       var container = obj._overlay ? this._overlaysList : this._baseLayersList;
       container.appendChild(group);
-      this._groups[obj._category] = layers;
+      this._groups[obj._type][obj._category] = layers;
     }
 
-    appendTo = this._groups[obj._category];
+    appendTo = this._groups[obj._type][obj._category];
 
     layer = document.createElement('label');
     checked = this._map.hasLayer(obj);
