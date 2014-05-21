@@ -1,0 +1,21 @@
+{
+  "name": "leaflet-categorized-layers",
+  "version": "0.0.1",
+  "authors": [
+    "Robbie Trencheny <me@robbiet.us>"
+  ],
+  "description": "A layer control for Leaflet that supports categories",
+  "main": "dist/leaflet-categorized-layers.min.js",
+  "keywords": [
+    "leaflet"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/robbiet480/leaflet-categorized-layers",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

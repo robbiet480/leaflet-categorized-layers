@@ -1,0 +1,33 @@
+{
+  "name": "leaflet-categorized-layers",
+  "version": "0.0.1",
+  "description": "Leaflet Control Layers extended for group of base and overlay layers",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:robbiet480/leaflet-categorized-layers.git"
+  },
+  "homepage": "http://github.com/robbiet480/leaflet-categorized-layers",
+  "author": {
+    "name": "Robbie Trencheny",
+    "email": "me@robbiet.us",
+    "url": "http://robbie.io/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gis",
+    "map",
+    "categorized",
+    "leaflet"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  	"grunt": "~0.4.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
