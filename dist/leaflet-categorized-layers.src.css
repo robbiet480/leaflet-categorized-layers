@@ -1,14 +1,13 @@
 /* 
  * Leaflet Categorized Layers v0.0.1 - 2014-05-21 
  * 
- * Copyright 2014 Robbie Trencheny
- * me@robbiet.us
+ * Copyright 2014 Robbie Trencheny 
+ * me@robbiet.us 
  * http://robbie.io/ 
  * 
  * Licensed under the MIT license. 
  * 
  */
-
 .leaflet-control-layers-list > div {
   margin: 2px;
   margin-bottom: 5px;

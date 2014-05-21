@@ -16,23 +16,23 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     this._groups = {};
     this._lastZIndex = 0;
     this._handlingClick = false;
-    for (var category in baseLayers) {
-      this._layers[category] = {};
-      for (var layer in baseLayers[category]) {
-        baseLayers[category][layer]._category = category;
-        baseLayers[category][layer]._name = layer;
-        baseLayers[category][layer]._overlay = false;
-        this._addLayer(baseLayers[category][layer], category, false);
+    for (var layerCategory in baseLayers) {
+      this._layers[layerCategory] = {};
+      for (var baseLayer in baseLayers[layerCategory]) {
+        baseLayers[layerCategory][baseLayer]._category = layerCategory;
+        baseLayers[layerCategory][baseLayer]._name = baseLayer;
+        baseLayers[layerCategory][baseLayer]._overlay = false;
+        this._addLayer(baseLayers[layerCategory][baseLayer], layerCategory, false);
       }
     }
 
-    for (var category in overlays) {
-      this._overlays[category] = {};
-      for (var layer in overlays[category]) {
-        overlays[category][layer]._category = category;
-        overlays[category][layer]._name = layer;
-        overlays[category][layer]._overlay = true;
-        this._addLayer(overlays[category][layer], category, true);
+    for (var overlayCategory in overlays) {
+      this._overlays[overlayCategory] = {};
+      for (var overlay in overlays[overlayCategory]) {
+        overlays[overlayCategory][overlay]._category = overlayCategory;
+        overlays[overlayCategory][overlay]._name = overlay;
+        overlays[overlayCategory][overlay]._overlay = true;
+        this._addLayer(overlays[overlayCategory][overlay], overlayCategory, true);
       }
     }
   },
@@ -83,18 +83,18 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         overlaysPresent = false,
         i, obj;
 
-    for (category in this._layers) {
-      for (layer in this._layers[category]) {
-        obj = this._layers[category][layer];
+    for (var baseLayerCategory in this._layers) {
+      for (var baseLayer in this._layers[baseLayerCategory]) {
+        obj = this._layers[baseLayerCategory][baseLayer];
         this._addItem(obj);
         overlaysPresent = overlaysPresent || obj._overlay;
         baseLayersPresent = baseLayersPresent || !obj._overlay;
       }
     }
 
-    for (category in this._overlays) {
-      for (layer in this._overlays[category]) {
-        obj = this._overlays[category][layer];
+    for (var overlayCategory in this._overlays) {
+      for (var overlay in this._overlays[overlayCategory]) {
+        obj = this._overlays[overlayCategory][overlay];
         this._addItem(obj);
         overlaysPresent = overlaysPresent || obj._overlay;
         baseLayersPresent = baseLayersPresent || !obj._overlay;
@@ -109,14 +109,14 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     if(!this._groups[obj._category]) {
       var group = L.DomUtil.create('div', className + '-group');
 
-      var name = document.createElement('span');
-      var collapsed = this.options.groupsCollapsed ? name.innerHTML = ' &#9658; ' : name.innerHTML = ' &#9660; '
-      name.innerHTML += obj._category;
-      name.className = 'groupHeader';
-      name.category = obj._category;
-      name.collapsed = collapsed;
-      L.DomEvent.on(name, 'click', this._onLabelClick);
-      group.appendChild(name);
+      var groupHeader = document.createElement('span');
+      var collapsed = this.options.groupsCollapsed ? groupHeader.innerHTML = ' &#9658; ' : groupHeader.innerHTML = ' &#9660; '
+      groupHeader.innerHTML += obj._category;
+      groupHeader.className = 'groupHeader';
+      groupHeader.category = obj._category;
+      groupHeader.collapsed = collapsed;
+      L.DomEvent.on(groupHeader, 'click', this._onLabelClick);
+      group.appendChild(groupHeader);
 
       var layers = document.createElement('span');
       layers.className = 'groupLayers';
@@ -178,7 +178,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     }
   },
   _onInputClick: function () {
-    var i, input, obj,
+    var i, input,
         inputs = this._form.getElementsByTagName('input'),
         inputsLen = inputs.length;
 
