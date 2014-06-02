@@ -1,5 +1,5 @@
 /* 
- * Leaflet Categorized Layers v0.0.4 - 2014-05-21 
+ * Leaflet Categorized Layers v0.0.4 - 2014-06-02 
  * 
  * Copyright 2014 Robbie Trencheny 
  * me@robbiet.us 
@@ -12,7 +12,7 @@
 
 L.Control.CategorizedLayers = L.Control.Layers.extend({
   options: {
-    collapsed: false,
+    collapsed: true,
     groupsCollapsed: true,
     collapseActiveGroups: false,
     position: 'topright',
@@ -35,7 +35,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         baseLayers[layerCategory][baseLayer]._category = layerCategory;
         baseLayers[layerCategory][baseLayer]._name = baseLayer;
         baseLayers[layerCategory][baseLayer]._overlay = false;
-        baseLayers[layerCategory][baseLayer]._type = "baseLayer";
+        baseLayers[layerCategory][baseLayer]._categoryType = "baseLayer";
         this._addLayer(baseLayers[layerCategory][baseLayer], layerCategory, false);
       }
     }
@@ -46,7 +46,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         overlays[overlayCategory][overlay]._category = overlayCategory;
         overlays[overlayCategory][overlay]._name = overlay;
         overlays[overlayCategory][overlay]._overlay = true;
-        overlays[overlayCategory][overlay]._type = "overlay";
+        overlays[overlayCategory][overlay]._categoryType = "overlay";
         this._addLayer(overlays[overlayCategory][overlay], overlayCategory, true);
       }
     }
@@ -124,7 +124,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
   _addItem: function (obj) {
     var className = 'leaflet-control-layers',
       label, input, checked, appendTo;
-    if(!this._groups[obj._type][obj._category]) {
+    if(!this._groups[obj._categoryType][obj._category]) {
       var group = L.DomUtil.create('div', className + '-group');
 
       var groupHeader = document.createElement('span');
@@ -146,10 +146,10 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
 
       var container = obj._overlay ? this._overlaysList : this._baseLayersList;
       container.appendChild(group);
-      this._groups[obj._type][obj._category] = layers;
+      this._groups[obj._categoryType][obj._category] = layers;
     }
 
-    appendTo = this._groups[obj._type][obj._category];
+    appendTo = this._groups[obj._categoryType][obj._category];
 
     layer = document.createElement('label');
     checked = this._map.hasLayer(obj);
