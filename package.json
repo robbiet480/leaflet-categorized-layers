@@ -1,6 +1,6 @@
 {
   "name": "leaflet-categorized-layers",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Leaflet Control Layers extended for group of base and overlay layers",
   "repository": {
     "type": "git",
