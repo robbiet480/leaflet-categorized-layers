@@ -1,5 +1,5 @@
 /* 
- * Leaflet Categorized Layers v0.0.4 - 2014-06-02 
+ * Leaflet Categorized Layers v0.0.6 - 2014-06-02 
  * 
  * Copyright 2014 Robbie Trencheny 
  * me@robbiet.us 
