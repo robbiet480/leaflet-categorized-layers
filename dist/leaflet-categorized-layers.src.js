@@ -1,5 +1,5 @@
 /* 
- * Leaflet Categorized Layers v0.0.6 - 2014-06-02 
+ * Leaflet Categorized Layers v0.0.6 - 2014-06-03 
  * 
  * Copyright 2014 Robbie Trencheny 
  * me@robbiet.us 
@@ -72,11 +72,37 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
       this._map.fire(type, e);
     }
   },
+  addBaseLayer: function (layer, category, name) {
+    layer._category = category;
+    layer._name = name;
+    layer._overlay = false;
+    layer._categoryType = "baseLayer";
+    this._addLayer(layer, category);
+    this._update();
+    return this;
+  },
+  addOverlay: function (layer, category, name) {
+    layer._category = category;
+    layer._name = name;
+    layer._overlay = true;
+    layer._categoryType = "overlay";
+    this._addLayer(layer, category);
+    this._update();
+    return this;
+  },
+  removeLayer: function (layer) {
+    var id = L.stamp(layer);
+    delete this._layers[id];
+    this._update();
+    return this;
+  },
   _addLayer: function (obj, category, overlay) {
     var id = L.stamp(obj);
-    if(obj._overlay) {
+    if(obj._overlay || overlay) {
+      if(!this._overlays[obj._category]) this._overlays[obj._category] = {};
       this._overlays[obj._category][id] = obj;
     } else {
+      if(!this._layers[obj._category]) this._layers[obj._category] = {};
       this._layers[obj._category][id] = obj;
     }
     
