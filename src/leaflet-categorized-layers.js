@@ -240,8 +240,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
 
     if (!L.Browser.touch) {
       L.DomEvent
-        .disableClickPropagation(container)
-        .disableScrollPropagation(container);
+        .disableClickPropagation(container);
     } else {
       L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
     }
