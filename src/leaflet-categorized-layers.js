@@ -8,14 +8,14 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     position: 'topright',
     autoZIndex: true
   },
-  
+
   initialize: function (baseLayers, overlays, options) {
     L.setOptions(this, options);
     this._layers = {};
     this._overlays = {};
     this._groups = {
-      "baseLayer": {},
-      "overlay": {}
+      'baseLayer': {},
+      'overlay': {}
     };
     this._lastZIndex = 0;
     this._handlingClick = false;
@@ -25,7 +25,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         baseLayers[layerCategory][baseLayer]._category = layerCategory;
         baseLayers[layerCategory][baseLayer]._name = baseLayer;
         baseLayers[layerCategory][baseLayer]._overlay = false;
-        baseLayers[layerCategory][baseLayer]._categoryType = "baseLayer";
+        baseLayers[layerCategory][baseLayer]._categoryType = 'baseLayer';
         this._addLayer(baseLayers[layerCategory][baseLayer], layerCategory, false);
       }
     }
@@ -36,7 +36,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
         overlays[overlayCategory][overlay]._category = overlayCategory;
         overlays[overlayCategory][overlay]._name = overlay;
         overlays[overlayCategory][overlay]._overlay = true;
-        overlays[overlayCategory][overlay]._categoryType = "overlay";
+        overlays[overlayCategory][overlay]._categoryType = 'overlay';
         this._addLayer(overlays[overlayCategory][overlay], overlayCategory, true);
       }
     }
@@ -45,9 +45,9 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     var category = e.layer._overlay ? this._overlays[e.layer._category] : this._layers[e.layer._category];
 
     if (!category) { return; }
-    
+
     var obj = category[L.stamp(e.layer)];
-    
+
     if (!obj) { return; }
 
     if (!this._handlingClick) {
@@ -66,7 +66,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     layer._category = category;
     layer._name = name;
     layer._overlay = false;
-    layer._categoryType = "baseLayer";
+    layer._categoryType = 'baseLayer';
     this._addLayer(layer, category);
     this._update();
     return this;
@@ -75,7 +75,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     layer._category = category;
     layer._name = name;
     layer._overlay = true;
-    layer._categoryType = "overlay";
+    layer._categoryType = 'overlay';
     this._addLayer(layer, category);
     this._update();
     return this;
@@ -95,7 +95,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
       if(!this._layers[obj._category]) this._layers[obj._category] = {};
       this._layers[obj._category][id] = obj;
     }
-    
+
     if (this.options.autoZIndex && obj.setZIndex) {
       this._lastZIndex++;
       obj.setZIndex(this._lastZIndex);
@@ -109,13 +109,13 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     this._baseLayersList.innerHTML = '';
     this._overlaysList.innerHTML = '';
     this._groups = {
-      "baseLayer": {},
-      "overlay": {}
+      'baseLayer': {},
+      'overlay': {}
     };
 
     var baseLayersPresent = false,
         overlaysPresent = false,
-        i, obj;
+        obj;
 
     for (var baseLayerCategory in this._layers) {
       for (var baseLayer in this._layers[baseLayerCategory]) {
@@ -138,13 +138,12 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     this._separator.style.display = overlaysPresent && baseLayersPresent ? '' : 'none';
   },
   _addItem: function (obj) {
-    var className = 'leaflet-control-layers',
-      label, input, checked, appendTo;
+    var className = 'leaflet-control-layers', layer, input, checked, appendTo;
     if(!this._groups[obj._categoryType][obj._category]) {
       var group = L.DomUtil.create('div', className + '-group');
 
       var groupHeader = document.createElement('span');
-      var collapsed = this.options.groupsCollapsed ? groupHeader.innerHTML = ' &#9658; ' : groupHeader.innerHTML = ' &#9660; '
+      var collapsed = this.options.groupsCollapsed ? groupHeader.innerHTML = ' &#9658; ' : groupHeader.innerHTML = ' &#9660; ';
       groupHeader.innerHTML += obj._category;
       groupHeader.className = 'groupHeader';
       groupHeader.category = obj._category;
@@ -175,7 +174,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
       appendTo.style.height = '100%';
       appendTo.style.display = 'block';
     }
-    
+
     if (obj._overlay) {
       input = document.createElement('input');
       input.type = 'checkbox';
@@ -184,7 +183,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     } else {
       input = this._createRadioElement('leaflet-base-layers', checked);
     }
-    
+
     input.layerId = L.stamp(obj);
     input.category = obj._category;
     input.overlay = obj._overlay;
@@ -220,7 +219,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
 
     for (i = 0; i < inputsLen; i++) {
       input = inputs[i];
-      var obj = input.overlay ? this._overlays[input.category][input.layerId] : this._layers[input.category][input.layerId]
+      var obj = input.overlay ? this._overlays[input.category][input.layerId] : this._layers[input.category][input.layerId];
       if (input.checked && !this._map.hasLayer(obj)) {
         this._map.addLayer(obj);
 
@@ -230,7 +229,7 @@ L.Control.CategorizedLayers = L.Control.Layers.extend({
     }
 
     this._handlingClick = false;
-  },  
+  },
   _initLayout: function () {
     var className = 'leaflet-control-layers',
         container = this._container = L.DomUtil.create('div', className);
